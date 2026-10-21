@@ -2,15 +2,18 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![YAML Validation](https://github.com/theplatformlab/CKA-Certified-Kubernetes-Administrator/actions/workflows/validate.yml/badge.svg)](https://github.com/theplatformlab/CKA-Certified-Kubernetes-Administrator/actions/workflows/validate.yml)
 [![CKA](https://img.shields.io/badge/CKA-Certified%202026-success)]()
-[![Kubernetes](https://img.shields.io/badge/Kubernetes-v1.35-326CE5?logo=kubernetes&logoColor=white)](https://kubernetes.io/)
-[![Exercises](https://img.shields.io/badge/Exercises-31-blue)](exercises/)
+[![CKA exam version](https://img.shields.io/badge/CKA%20exam-v1.37-326CE5?logo=kubernetes&logoColor=white)](https://docs.linuxfoundation.org/tc-docs/certification/faq-cka-ckad-cks)
+[![Lab version](https://img.shields.io/badge/Lab%20version-v1.35-326CE5?logo=kubernetes&logoColor=white)](https://kubernetes.io/releases/)
+[![Exercises](https://img.shields.io/badge/Exercises-32-blue)](exercises/)
 [![Skeletons](https://img.shields.io/badge/YAML%20Skeletons-23-blue)](skeletons/)
 [![Mock Exams](https://img.shields.io/badge/Mock%20Exams-2-success)](mock-exams/)
 [![GitHub stars](https://img.shields.io/github/stars/theplatformlab/CKA-Certified-Kubernetes-Administrator?style=social)](https://github.com/theplatformlab/CKA-Certified-Kubernetes-Administrator)
 
 **Disclaimer:** This is a study and practice resource. It contains practice exercises and training materials designed to help prepare for the CKA exam. It does not include, share, or reproduce actual CKA exam questions. All exercises are independently designed training scenarios. See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for policies.
 
-> My CKA study notes, practice questions, and kubectl cheat sheet. Kubernetes v1.35. I scored 89% — this is everything I used to prepare.
+> My CKA study notes, practice questions, and kubectl cheat sheet. The lab examples target Kubernetes v1.35. I scored 89% — this is what I used to prepare.
+
+**Version check (October 21, 2026):** The Linux Foundation currently lists Kubernetes v1.37 for the CKA exam environment. It says exam environments generally align with a new Kubernetes minor version within about 4 to 8 weeks of release. This repository's existing lab examples target v1.35 unless a file says otherwise; they are not all verified against v1.37. Check the [official CKA FAQ](https://docs.linuxfoundation.org/tc-docs/certification/faq-cka-ckad-cks) and [CNCF CKA curriculum](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_v1.37.pdf) before relying on version-specific details.
 
 # CKA Certification Guide 2026 — How I Passed with 89%
 
@@ -20,7 +23,7 @@
 
 I took the CKA in March 2026 and scored 89%. Writing this while it's fresh — partly because I was frustrated with how many outdated guides are still floating around (dockershim references in 2026, come on) and partly because organizing my notes helped me retain what I learned.
 
-The [CKA](https://www.cncf.io/certification/cka/) is a hands-on, terminal-based exam. 2 hours, roughly 17-25 tasks, no multiple choice. I prepped for about 4 weeks. This repo has my notes, the commands I actually used, YAML I wrote from memory, and the mistakes I made along the way.
+The [CKA](https://www.cncf.io/certification/cka/) is a two-hour, performance-based exam completed from a command line. I prepped for about 4 weeks. This repo has my notes, the commands I used, YAML I wrote from memory, and the mistakes I made along the way.
 
 If this was useful, a star helps others find it.
 
@@ -32,7 +35,7 @@ If you're time-pressured, here's the fast track:
 
 1. **Start a practice cluster** _(if needed)_ — if `kubectl` says connection refused or you don't have a local cluster yet: `bash scripts/init-cluster.sh`. This creates a kind-based k8s 1.35.1 cluster with one command. [Read more](#local-cluster-setup).
 2. **Run the setup script** — get your aliases and vim config right from day one: [scripts/exam-setup.sh](scripts/exam-setup.sh)
-3. **Do the exercises** — work through the [31 hands-on exercises](exercises/) in order. Each one targets a specific CKA domain.
+3. **Do the exercises** — use the [exercise list](exercises/) to choose a domain-focused lab or supplemental practice.
 4. **Use YAML templates** — reference [TEMPLATES.md](TEMPLATES.md) for all skeleton YAML. Copy, paste, modify.
 5. **Do the mock exam** — practice under exam conditions with timed scenarios. See [mock-exams/README.md](mock-exams/README.md) for prep strategy and scoring.
 6. **Do killer.sh twice** — once 2 weeks out, once 3 days before. See [killer.sh vs the Real Exam](#killersh-vs-the-real-cka-exam).
@@ -45,7 +48,7 @@ If you're time-pressured, here's the fast track:
 ```
 CKA-Certified-Kubernetes-Administrator/
 ├── README.md                          # This guide (you're here)
-├── exercises/                         # 31 hands-on labs
+├── exercises/                         # 32 hands-on labs
 │   ├── 01-pod-basics/
 │   ├── 02-multi-container-pod/
 │   ├── 03-configmap-secret/
@@ -76,7 +79,8 @@ CKA-Certified-Kubernetes-Administrator/
 │   ├── 28-network-policy-complex/
 │   ├── 29-troubleshoot-etcd-endpoint/
 │   ├── 30-tls-configuration-update/
-│   └── 31-argocd-gitops-setup/
+│   ├── 31-argocd-gitops-setup/
+│   └── 32-service-endpoints-troubleshooting/
 ├── TEMPLATES.md                       # All YAML templates in collapsible format
 ├── skeletons/                         # 23 YAML template files (see TEMPLATES.md)
 ├── mock-exams/                        # Full practice exams (15 questions, 2 hours each)
@@ -108,7 +112,7 @@ CKA-Certified-Kubernetes-Administrator/
 ## Table of Contents
 
 ### Start Here — Practice Your Skills
-- [CKA Syllabus Breakdown (v1.35)](#cka-syllabus-breakdown-v135)
+- [CKA Syllabus Breakdown (v1.37)](#cka-syllabus-breakdown-v137)
   - [Domain 1 — Storage (10%)](#domain-1--storage-10)
   - [Domain 2 — Troubleshooting (30%)](#domain-2--troubleshooting-30)
   - [Domain 3 — Workloads & Scheduling (15%)](#domain-3--workloads--scheduling-15)
@@ -138,11 +142,11 @@ CKA-Certified-Kubernetes-Administrator/
 - [killer.sh vs the Real CKA Exam](#killersh-vs-the-real-cka-exam)
 
 ### Exam Details & Reference
-- [CKA Exam Details — Cost, Duration, Passing Score, Format](#cka-exam-details--cost-duration-passing-score-format-march-2026)
+- [CKA Exam Details — Cost, Duration, Passing Score, Format](#cka-exam-details--cost-duration-passing-score-format-october-2026)
 - [How Much Does the CKA Exam Cost?](#how-much-does-the-cka-exam-cost)
 - [CKA vs CKAD vs CKS — Which One Should You Take?](#cka-vs-ckad-vs-cks--which-one-should-you-take)
 - [CKA vs CKAD vs CKS Scope Architecture Diagram](#cka-vs-ckad-vs-cks-scope-architecture-diagram)
-- [What Changed in Kubernetes v1.35 for CKA](#what-changed-in-kubernetes-v135-for-cka)
+- [Kubernetes v1.35 Lab Notes](#kubernetes-v135-lab-notes)
 - [Before You Book the CKA Exam](#before-you-book-the-cka-exam)
 - [CKA FAQ — Common Questions](#cka-faq--common-questions)
 
@@ -153,7 +157,7 @@ CKA-Certified-Kubernetes-Administrator/
 
 ## Local Cluster Setup — Practice with Kind
 
-**Don't have a Kubernetes cluster?** Use the included script to bootstrap a local k8s 1.35.1 cluster via [kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker). Perfect for running through all 31 exercises without needing a kubeadm setup.
+**Don't have a Kubernetes cluster?** Use the included script to bootstrap a local k8s 1.35.1 cluster via [kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker). Perfect for running through the exercises without needing a kubeadm setup.
 
 ### Quick Start: One Command
 
@@ -211,15 +215,15 @@ cd exercises/01-pod-basics        # Start practicing
 
 ---
 
-## CKA Exam Details — Cost, Duration, Passing Score, Format (March 2026)
+## CKA Exam Details — Cost, Duration, Passing Score, Format (October 2026)
 
 | **CKA Exam Details**               | **Information**                                                                                                                                     |
 |------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Exam Type**                      | Performance-based (live terminal — NOT multiple choice)                                                                                             |
 | **Exam Duration**                  | 2 hours                                                                                                                                             |
 | **Passing Score**                  | 66%                                                                                                                                                 |
-| **Kubernetes Version**             | v1.35                                                                                                                                               |
-| **Number of Questions**            | ~17-25 tasks (varies per session)                                                                                                                   |
+| **Kubernetes Version**             | v1.37, according to the Linux Foundation FAQ checked October 21, 2026                                                                                |
+| **Number of Questions**            | The official overview describes a performance-based exam; it does not give a fixed task count                                                       |
 | **Exam Cost**                      | $445 USD (includes one free retake)                                                                                                                 |
 | **Certificate Validity**           | 2 years                                                                                                                                             |
 | **Exam Delivery**                  | PSI Secure Browser (remote proctored)                                                                                                               |
@@ -265,7 +269,6 @@ Don't pay full price if you can wait for a sale. I paid around $300 during a Kub
 | **Cost** | $445 | $445 | $445 |
 | **Prerequisites** | None | None | Must hold active CKA |
 | **Key Topics** | etcd, kubeadm, RBAC, troubleshooting, networking | Pods, Deployments, Jobs, probes, volumes | Falco, AppArmor, OPA, Network Policies, audit |
-| **Questions** | ~17-25 | ~15-20 | ~15-20 |
 | **My honest take** | Start here if you manage clusters. The etcd and kubeadm skills don't exist anywhere else. | Easier than CKA but less impressive on a resume. | Skip unless your job requires it — the ROI is lower. |
 
 My take: if you're doing any kind of cluster administration, start with CKA. If you're purely a dev who deploys apps, CKAD first. CKS requires an active CKA, so you can't skip it.
@@ -326,22 +329,19 @@ graph TB
 
 ---
 
-## What Changed in Kubernetes v1.35 for CKA
+## Kubernetes v1.35 Lab Notes
 
-If you're studying from a guide written for v1.29 or v1.30, some of it is wrong. I found this out the hard way — half my bookmarked blog posts had outdated sidecar syntax and still referenced `--record` on rollouts. Here's what actually changed that matters for the CKA:
+These notes describe the repository's v1.35 lab baseline. They are not a list of changes guaranteed to appear on the current CKA exam. For exam scope, use the current [official curriculum](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_v1.37.pdf).
 
-| Feature | Status in v1.35 | CKA Impact |
+| Feature | Status in v1.35 | Lab note |
 |---|---|---|
-| **Sidecar containers (native)** | GA | Init containers with `restartPolicy: Always` run as sidecars. You'll see this on the exam. |
-| **In-place pod vertical scaling** | Beta | Can resize CPU/memory without restarting. I spent 30 minutes learning this and it wasn't on my exam. Know it exists, move on. |
-| **Gateway API** | GA (v1.2+) | Replacing Ingress long-term. I got a question on this. Know how to create a Gateway and an HTTPRoute that points to a backend service. |
-| **cgroup v2** | Default | All nodes use cgroup v2 now. Affects resource monitoring and limits. |
-| **kubectl debug** | GA | `k debug node/<name>` and `k debug pod/<name>` — useful for troubleshooting tasks. |
-| **ValidatingAdmissionPolicy** | GA | CEL-based admission without webhooks. I didn't get this on my exam but it's in the curriculum now. Worth 15 minutes of study. |
-| **Pod Scheduling Readiness** | GA | Pods can wait in scheduling gates. Not likely to show up on the exam. |
-| **CSI migration complete** | Done | In-tree volume plugins fully migrated. StorageClass provisioners are all CSI now. |
+| **Native sidecars** | Stable | Sidecars can be declared in `initContainers` with `restartPolicy: Always`. |
+| **In-place pod vertical scaling** | Beta | Can resize CPU or memory resources without replacing the pod, subject to feature support. |
+| **Gateway API** | Stable APIs available | See the Gateway API exercise; controller installation and configuration vary by cluster. |
+| **kubectl debug** | Stable | The command is useful for pod and node troubleshooting. |
+| **ValidatingAdmissionPolicy** | Stable | CEL-based admission policy is available without a webhook. |
 
-The big ones for exam prep: native sidecars and Gateway API. If your study material doesn't cover these, it's outdated.
+Check the documentation for the Kubernetes version used by your practice cluster before using version-specific features.
 
 ---
 
@@ -408,7 +408,7 @@ Memorize the commands. That beats any alias on test day.
 
 ## Imperative Commands Quick Reference
 
-**Why imperative?** Under exam pressure (2 hours, ~17 tasks), typing YAML is slow. The CKA expects speed. Most questions can be solved faster with imperative commands than writing manifests. Declarative is for when you need complex control or for learning.
+**Why imperative?** Under the two-hour exam limit, typing YAML can be slow. Use imperative commands when they are faster; use a manifest when the task needs fields that a command cannot express.
 
 **Speed tip:** Memorize these command patterns. On test day, `kubectl run`, `kubectl create`, and `kubectl expose` will be your fastest friends.
 
@@ -935,7 +935,9 @@ k create secret generic my-secret --from-literal=pass=s3cret $do > secret.yaml
 
 ---
 
-## CKA Syllabus Breakdown (v1.35)
+## CKA Syllabus Breakdown (v1.37)
+
+The domain weights below match the current official CKA curriculum. The Kubernetes version in the exam environment can change; see the version note near the top of this guide.
 
 ### Domain 1 — Storage (10%)
 
@@ -3206,7 +3208,7 @@ I did killer.sh twice. Here's how it compares:
 | | **killer.sh** | **Real CKA Exam** |
 |---|---|---|
 | **Difficulty** | Harder — deliberately over-tests | Moderate |
-| **Number of questions** | ~25 | ~17-25 |
+| **Task count** | Varies by session | The Linux Foundation does not publish a fixed count |
 | **Time pressure** | Very tight — most people don't finish | Tight but doable |
 | **Question length** | Some are multi-step and long | More focused, but some still tricky |
 | **Scoring** | Shows score after 24h session | Shows score in 24h via email |
@@ -3861,7 +3863,7 @@ spec:
 
 ### Is the CKA exam hard?
 
-Yes. Harder than I expected. The questions themselves aren't insane, but doing 17 tasks in 2 hours on a laggy remote desktop is stressful. I ran out of time on my first killer.sh attempt and only finished 12 questions. The passing score is 66%, which sounds low until you realize you're typing YAML from memory while a timer counts down. Practice until you're fast, not just correct.
+Yes. Harder than I expected. The questions themselves aren't insane, but working under the two-hour limit on a laggy remote desktop is stressful. I ran out of time on my first killer.sh attempt and only finished 12 questions. The passing score is 66%, which sounds low until you realize you're typing YAML from memory while a timer counts down. Practice until you're fast, not just correct.
 
 ### Is the CKA worth it in 2026?
 
@@ -3902,11 +3904,11 @@ CKA is about building and fixing clusters. CKS is about locking them down — Fa
 
 ### How many questions are on the CKA?
 
-Somewhere around 17-25 tasks. Mine had 17. Each task has a weight percentage — a 7% question is worth more than a 3% one, obviously. I did the high-weight questions first on my second pass. Don't treat all questions equally.
+The Linux Foundation describes the CKA as a two-hour performance-based exam but does not publish a fixed task count. Tasks can carry different weights, so read the task values in your exam interface and manage your time accordingly.
 
 ### What Kubernetes version is on the CKA in 2026?
 
-v1.35 as of March 2026. They update it to match recent stable releases. Check the [CNCF handbook](https://docs.linuxfoundation.org/tc-docs/certification/tips-cka-and-ckad) before your exam — if you studied on v1.34, most things are the same but native sidecars and Gateway API are GA now, and those showed up on my exam.
+The Linux Foundation FAQ lists Kubernetes v1.37 as the CKA exam environment version as of October 21, 2026. The exam environment can be updated after Kubernetes releases, so check the [official CKA FAQ](https://docs.linuxfoundation.org/tc-docs/certification/faq-cka-ckad-cks) close to your exam date. The lab examples in this repository target v1.35 unless a file says otherwise.
 
 ### Can I use aliases and scripts during the CKA?
 
