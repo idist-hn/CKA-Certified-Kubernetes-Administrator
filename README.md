@@ -240,20 +240,7 @@ Important: the passing score is 66%, not 75% like some older guides say. They lo
 
 ## How Much Does the CKA Exam Cost?
 
-The CKA costs **$445 USD** as of March 2026. That includes:
-
-- One exam attempt
-- One free retake (if you fail)
-- Two killer.sh simulator sessions (24 hours each)
-- Access to a self-paced training course
-
-Discount tips:
-- The CNCF runs sales on Black Friday and KubeCon weeks — I've seen 30-40% off
-- Linux Foundation bundles (CKA + CKAD) sometimes drop to ~$500 total
-- Check if your employer has a training budget — most do for certs
-- Student discounts exist through the Linux Foundation
-
-Don't pay full price if you can wait for a sale. I paid around $300 during a KubeCon promo.
+The Linux Foundation listed the exam-only option at **$445 USD** when I checked in October 2026. Bundles, retake eligibility, simulator access, and course access depend on the option shown at purchase and can change. Check the [official CKA page](https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/) for current details. My own exam cost less during a promotion, but that price is not guaranteed to be available.
 
 ---
 
@@ -350,7 +337,7 @@ Check the documentation for the Kubernetes version used by your practice cluster
 Checklist I wish someone had given me before I started booking:
 
 1. **Can you set up a cluster from scratch with kubeadm?** I couldn't the first time I tried. Took me 3 attempts before I could do it without the docs open. Do it at least twice before booking.
-2. **Can you do an etcd backup and restore?** This is almost guaranteed to show up. I practiced this 10+ times. The cert flags need to be muscle memory, not something you look up.
+2. **Can you do an etcd backup and restore?** It is an important cluster-administration skill. Practice the snapshot commands and know how to verify the restored data; use the docs for version-specific flags.
 3. **Are you comfortable with RBAC?** Role vs ClusterRole, RoleBinding vs ClusterRoleBinding, ServiceAccounts — I fumbled the `--as=system:serviceaccount:ns:name` syntax for weeks before it clicked.
 4. **Can you troubleshoot a NotReady node?** SSH in, check kubelet, check certificates, check networking. This is 30% of the score and it's the section where most people lose the most time.
 5. **Do you have a cluster to practice on?** kind or minikube on your laptop, or Killercoda/KodeKloud online. You cannot pass this exam by reading — you have to break things.
@@ -442,7 +429,7 @@ k run nginx --image=nginx:1.27 $do > pod.yaml
 
 **Exam pattern:** Use `$do` flag to generate YAML, review it, then apply. Saves you from memorizing exact YAML structure.
 
-### Deployment Creation & Management (Most exam questions)
+### Deployment Creation & Management
 
 ```bash
 # Basic deployment
@@ -483,7 +470,7 @@ k rollout resume deployment/webapp
 k create deployment webapp --image=nginx:1.27 --dry-run=client -o yaml > deploy.yaml
 ```
 
-**Exam tip:** Rollout commands appear on almost every CKA exam. Practice `rollout undo` and `rollout history` until they're muscle memory.
+**Practice tip:** Know how to inspect rollout history and undo a Deployment update. These are useful administration skills; this guide cannot predict how often they will appear on an exam.
 
 ### Service Exposure (ClusterIP, NodePort, LoadBalancer)
 
@@ -1627,7 +1614,7 @@ Key difference: control plane uses `kubeadm upgrade apply`, worker uses `kubeadm
 
 #### 4.6 — Implement etcd Backup and Restore
 
-This shows up on almost every CKA exam. Memorize this.
+etcd backup and restore are part of cluster administration. Practice the commands and confirm the restored data rather than relying on memorized flags alone.
 
 **Backup:**
 ```bash
@@ -1853,9 +1840,9 @@ ingress:
 
 This difference tripped me up during practice. Read the indentation carefully.
 
-#### 5.8 — Gateway API (v1.35)
+#### 5.8 — Gateway API
 
-Gateway API is the successor to Ingress. It's GA in v1.35 and may appear on the CKA.
+Gateway API provides resources for configuring service traffic. Which resources work depends on the Gateway API version and controller installed in the cluster. The current CKA curriculum includes Gateway API; consult that curriculum and the relevant controller documentation for scope and setup.
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -2450,7 +2437,7 @@ k logs sidecar-logging -c log-streamer
 
 ## Practice Questions with Answers (Mock Exam)
 
-17 questions weighted to match the real exam. Switch context before each one.
+17 original practice questions, with weights assigned for this worksheet. They are not official exam questions, and their weights do not represent published CKA question weights. Switch context before each one.
 
 ---
 
@@ -3359,7 +3346,7 @@ Each exam:
 
 Scoring: 10+ correct (66%) = pass. 12+ = strong. 15/15 = ready for the real exam.
 
-Study approach: Complete all 22 exercises first, then take both mock exams under timed conditions. Track weak areas and review corresponding exercises before taking the real exam.
+Study approach: Work through the exercises relevant to your preparation, then take both mock exams under timed conditions. Track weak areas and review the corresponding exercises before your exam.
 
 ---
 
