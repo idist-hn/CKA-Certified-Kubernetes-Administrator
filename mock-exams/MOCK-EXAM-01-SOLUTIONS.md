@@ -178,9 +178,9 @@ spec:
   policyTypes:
   - Ingress
   ingress:
-  - protocol: TCP
     ports:
-    - port: 80
+    - protocol: TCP
+      port: 80
 ```
 
 Backend policy (allow inbound from frontend on port 3000):
@@ -196,10 +196,10 @@ spec:
       tier: backend
   policyTypes:
   - Ingress
-  ingress:
-  - protocol: TCP
+  ingress: 
     ports:
-    - port: 3000
+    - protocol: TCP
+      port: 3000
     from:
     - podSelector:
         matchLabels:
@@ -219,10 +219,10 @@ spec:
       tier: database
   policyTypes:
   - Ingress
-  ingress:
-  - protocol: TCP
+  ingress: 
     ports:
-    - port: 5432
+    - protocol: TCP
+      port: 5432
     from:
     - podSelector:
         matchLabels:
