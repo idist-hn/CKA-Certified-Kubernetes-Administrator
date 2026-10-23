@@ -178,7 +178,7 @@ spec:
   policyTypes:
   - Ingress
   ingress:
-    ports:
+  - ports:
     - protocol: TCP
       port: 80
 ```
@@ -197,7 +197,7 @@ spec:
   policyTypes:
   - Ingress
   ingress: 
-    ports:
+  - ports:
     - protocol: TCP
       port: 3000
     from:
